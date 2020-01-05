@@ -1,0 +1,137 @@
+Git
+    开源分布式版本控制工具
+
+
+1。与SVN区别
+        Git 分布式 
+        Git 按元数据方式存储，SVN按文件存储
+        分支不同
+        Git 没有全局版本号
+        Git 内容完整性优于SVN
+
+2。工作流程
+        clone git资源为工作目录
+        在clone资源上添加或修改文件
+        其他人修改了可以更新资源
+        在提交前可以查看修改
+        提交修改
+        修改完成后，发生错误，可以撤回提交再次修改提交
+3。基本概念
+        工作区：pc中的目录
+        暂存区：stage/index 存放于.git(.git/index)中 别名索引
+        版本库：工作区中有一隐藏目录：.git ------版本库
+4。创建仓库
+        git init -------初始化仓库，使用当前目录作为仓库。并且初始化
+        git init newrepo---------使用指定目录作为git仓库,初始化后出现.git目录，所有数据资源存放于此目录
+        git add filename--------对文件进行跟踪
+        git commit -m '版本名'-------以版本名将添加跟踪的文件提交到仓库中
+        git clone <repo url> <directory> ---------将仓库中的项目clone到指定目录
+        
+5。基本操作  
+    git status -s      查看项目状态 (-s 参数以简短结果输出)
+    git diff           查看执行git status 的结果详细信息
+    应用场景:   git diff 查看尚未缓存的改动 
+              git diff --cached 查看已经缓存的改动
+              git diff HEAD     查看已经缓存的改动
+              git diff --stat   显示摘要 
+    git config
+              配置提交用户名 用户邮箱
+              git config --global user.name 'user.name'
+              git config --global user.email user_email
+    git commit  
+              git add 添加文件跟踪
+              git commit -m '注释'
+              git status
+    git reset HEAD 
+              git reset HEAD filename
+              取消已经缓存的内容 （清楚cached 内容）
+    git rm
+              git rm filename 从已经跟踪的文件清单中移除
+              git rm -f filename 文件已经修改且一定放到缓存区 强制删除
+              git rm --cached filename 从缓存区删除 但是仍然保留当前工作目录中
+  
+    git mv      
+                    git mv filename1 filename2 重命名
+
+6。分支管理
+    git branch 显示当前分支名称
+    git branch (branchname)   创建分支
+        git branch -d branchname 删除分支
+        git branch -b branchname 创建分支，并且立即切换到该分支的工作目录
+    git checkout (branchname) 切换分支
+    git merge 合并分支 切换分支时候 Git 用分支最后提交的内容替换工作目录内容，所以多个分支不需要多个目录 各个分支有不同的内容，但最后工作分支合并到主分支
+        git merge newbrachname 将分支合并到master中 默认master
+        合并冲突 不同分支内有同名文件 都作除了修改 都已经提交 修改内容不同
+        merge 后不同branch中文件发生冲突  需要手动修改merge 后文件内容
+        
+        使用git add filename 告诉git文件冲突已经解决
+
+7。 查看提交历史 
+    git log 查看git 日志文件 
+    git log --oneline 日志文件简洁版本
+    git log --graph 显示图形模式 查看分支合并具体情况
+    git log --reverse  逆向显示日志文件
+    git log --author=<author name> 查看提交作者
+    git log --since --before --until --after  显示某个时期中的版本提交情况
+    git log --decorate 显示日志文件同时  显示出所有标签等要素
+8。 标签
+    git tag -a <tagname> 创建标签创建时间、标签名 同时git 会打开一个编辑器 写入注解
+    git tag 显示所有标签
+    git tag -d <tagname> 
+    git tag show <tagname> 显示标签相关内容
+9。 远程仓库(Github)
+    git remote add <name> <url> 添加一个新的远程仓库 
+    git remote add origin git@github.com:<username>/<reporist_name>.git
+    git push -u origin master  提交本地文件到远程仓库
+    git remote 显示当前远程仓库名称
+    git remote 显示当前远程仓库的详细信息
+    git fetch 从远程仓库拉取新分支、数据
+    git merge 拉取新分支、数据后需要在本地进行分支合并
+    git push <alias> <branc> 从本地新分支到远程仓库
+    git remote rm <alias> 删除远程仓库
+    #git fetch origin master-------> 从origin 远程 上拉取名为master 的分支到本地分支 origin/master 
+    #git fetch origin <branchname1> <branchname2> <branchname3>; 一次性拉取多个分支 使用后必须使用 git merge 合并分支
+
+10。Git服务器搭建
+    yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-devel
+    yum install git 
+    groupadd git 
+    useradd git -g git 
+
+    创建证书登陆
+    cd <filepath>
+    mkdir .ssh
+    chmod 755 .ssh
+    touch .ssh/authorized_keys
+    chmod 644 .ssh/authorized_keys
+
+    初始化git仓库
+    cd <filepath>
+    mkdir gitrepo
+    chown git:git gitrepo/
+    cd gitrepo
+    git init --bare <name>
+    chown -R git:git <name>
+    
+
+    git clone url
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
