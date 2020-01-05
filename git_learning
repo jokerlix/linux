@@ -42,6 +42,8 @@ Git
               git add 添加文件跟踪
               git commit -m '注释'
               git status
+    git fetch 
+              从远程仓库拉取新分支
     git reset HEAD 
               git reset HEAD filename
               取消已经缓存的内容 （清楚cached 内容）
@@ -49,6 +51,9 @@ Git
               git rm filename 从已经跟踪的文件清单中移除
               git rm -f filename 文件已经修改且一定放到缓存区 强制删除
               git rm --cached filename 从缓存区删除 但是仍然保留当前工作目录中
+    git push  
+              将当前push到远程仓库
+              --force 强制push
   
     git mv      
                     git mv filename1 filename2 重命名
